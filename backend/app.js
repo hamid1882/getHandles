@@ -9,4 +9,8 @@ const product = require("./routes/productRoute");
 
 app.use("/api/v1", product);
 
+app.get('/', (req, res) => {
+  res.send("Hello World")
+})
+
 module.exports = app;
