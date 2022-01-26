@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-  getAllProducts,
+  getAllProducts,git push -u origin main
   createProduct,
   updateProduct,
   deleteProduct,
