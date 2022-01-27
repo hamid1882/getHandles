@@ -1,11 +1,11 @@
 const Product = require("../models/productModel");
-const ErrorHandler = require("../utils/errorHandler");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const errorHandler = require("../utils/errorHandler");
+const handleAsyncErrors = require("../middleware/handleAsyncErrors");
 
-//create Product-- Admin
+// get all the products
 
-exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.create(req.body);
+exports.getAllProducts = handleAsyncErrors(async (req, res, next) => {
+  const product = await Product.find();
 
   res.status(200).json({
     success: true,
@@ -13,23 +13,13 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-//get all products
+// get product Details
 
-exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-  const products = await Product.find();
-  res.status(200).json({
-    success: true,
-    products,
-  });
-});
-
-//get product details
-
-exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
+exports.getProductDetails = handleAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
   if (!product) {
-    return next(new ErrorHandler("Product not found", 404));
+    return next(new errorHandler("Product does not exists", 500));
   }
 
   res.status(200).json({
@@ -38,13 +28,24 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-//update product -- admin
+// create new product -- admin
 
-exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
+exports.createProduct = handleAsyncErrors(async (req, res, next) => {
+  const product = await Product.create(req.body);
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
+
+// update a product -- admin
+
+exports.updateProduct = async (req, res, next) => {
   let product = await Product.findById(req.params.id);
 
   if (!product) {
-    return next(new ErrorHandler("Unable to update, Internal error", 404));
+    return next(new errorHandler("Unable to update", 404));
   }
 
   product = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -54,24 +55,23 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
   });
 
   res.status(200).json({
-    success: true,
+    status: true,
     product,
   });
-});
+};
 
-//delete product
+// delete product
 
-exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
+exports.deleteProduct = async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
   if (!product) {
-    return next(new ErrorHandler("Unable to delete", 404));
+    return next(new errorHandler("Unable to delete", 404));
   }
 
   await product.remove();
 
   res.status(200).json({
     success: true,
-    message: "Product Deleted successfully",
   });
-});
+};

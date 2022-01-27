@@ -6,6 +6,17 @@ const productSchema = new mongoose.Schema({
     required: [true, "Please Enter product Name"],
     trim: true,
   },
+  id: {
+    type: Number,
+    required: [true, "Please Enter product id"],
+  },
+  size: {
+    type: Number,
+    required: [true, "Please enter the size"],
+  },
+  quality: {
+    type: String,
+  },
   description: {
     type: String,
     required: [true, "Please enter product description"],
@@ -14,6 +25,9 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please enter product price"],
     maxLength: [8, "Price cannot exceed 8 characters"],
+  },
+  priceFor: {
+    type: String,
   },
   rating: {
     type: Number,
@@ -31,9 +45,12 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
+  color: {
+    type: String,
+  },
   category: {
     type: String,
-    required: [true, "Please enter product category"],
+    required: true,
   },
   stock: {
     type: Number,
@@ -63,4 +80,4 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Product", productSchema)
+module.exports = mongoose.model("Product", productSchema);
