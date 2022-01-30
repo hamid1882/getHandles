@@ -41,6 +41,9 @@ exports.getProductDetails = handleAsyncErrors(async (req, res, next) => {
 // create new product -- admin
 
 exports.createProduct = handleAsyncErrors(async (req, res, next) => {
+  
+  req.body.user = req.user.id;
+  
   const product = await Product.create(req.body);
 
   res.status(200).json({
