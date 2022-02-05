@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import WebFont from "webfontloader";
 import Home from "./component/Home/Home.js";
 
+import "./App.css";
+
 function App() {
   React.useEffect(() => {
     WebFont.load({
