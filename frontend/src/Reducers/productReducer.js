@@ -10,13 +10,13 @@ export const productReducer = (state = { products: [] }, action) => {
     case PRODUCT_REQUEST:
       return {
         loading: true,
-        product: [],
+        products: [],
       };
 
     case PRODUCT_SUCCESS:
       return {
         loading: false,
-        product: action.payload.products,
+        products: action.payload.product,
         productsCount: action.payload.productsCount,
       };
 
@@ -36,3 +36,4 @@ export const productReducer = (state = { products: [] }, action) => {
       return state;
   }
 };
+
