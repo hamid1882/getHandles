@@ -1,5 +1,5 @@
 const Product = require("../models/productModel");
-const errorHandler = require("../utils/errorHandler");
+const ErrorHandler = require("../utils/ErrorHandler");
 const handleAsyncErrors = require("../middleware/handleAsyncErrors");
 const ApiFeatures = require("../utils/apiFeatures");
 
@@ -29,7 +29,7 @@ exports.getProductDetails = handleAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
   if (!product) {
-    return next(new errorHandler("Product does not exists", 500));
+    return next(new ErrorHandler("Product does not exists", 500));
   }
 
   res.status(200).json({
@@ -57,7 +57,7 @@ exports.updateProduct = async (req, res, next) => {
   let product = await Product.findById(req.params.id);
 
   if (!product) {
-    return next(new errorHandler("Unable to update", 404));
+    return next(new ErrorHandler("Unable to update", 404));
   }
 
   product = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -78,7 +78,7 @@ exports.deleteProduct = async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
   if (!product) {
-    return next(new errorHandler("Unable to delete", 404));
+    return next(new ErrorHandler("Unable to delete", 404));
   }
 
   await product.remove();
@@ -103,7 +103,7 @@ exports.createProductReview = handleAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(productId);
 
   if (!product) {
-    return next(new errorHandler("Product not found", 400));
+    return next(new ErrorHandler("Product not found", 400));
   }
 
   const isReviewed = product.reviews.find(
@@ -141,7 +141,7 @@ exports.getProductReviews = handleAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.query.id);
 
   if (!product) {
-    return next(new errorHandler("No reviews found", 400));
+    return next(new ErrorHandler("No reviews found", 400));
   }
 
   res.status(200).json({
@@ -156,7 +156,7 @@ exports.deleteReview = handleAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.query.productId);
 
   if (!product) {
-    return next(new errorHandler("No reviews found", 400));
+    return next(new ErrorHandler("No reviews found", 400));
   }
 
   const reviews = product.reviews.filter(

@@ -7,6 +7,7 @@ import WebFont from "webfontloader";
 import Home from "./component/Home/Home.js";
 
 import "./App.css";
+import ProductDetails from "./component/Product/ProductDetails";
 
 function App() {
   useEffect(() => {
@@ -18,24 +19,18 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <>
-        <div>
-          <Header />
-          <Home />
-          <Footer />
-        </div>
+    <div>
+      <Router>
+        <Header />
         <Routes>
-          <Route path="/" element={Header}></Route>
+          <Route path="/" element={<Home />}></Route>
         </Routes>
         <Routes>
-          <Route path="/" element={Home}></Route>
+          <Route path="/product/:id" element={<ProductDetails />}></Route>
         </Routes>
-        <Routes>
-          <Route path="/" element={Footer}></Route>
-        </Routes>
-      </>
-    </Router>
+        <Footer />
+      </Router>
+    </div>
   );
 }
 
