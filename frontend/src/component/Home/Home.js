@@ -5,24 +5,20 @@ import MetaData from "../layout/MetaData";
 import "./Home.css";
 import { getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
-import { productReducer } from "../../Reducers/productReducer";
 import Loader from "../layout/Loader/Loader";
-
-const product = {
-  name: "Blue handle",
-  images: [{ url: "https://i.ibb.co/DRST11n/1.webp" }],
-  price: "₹3000",
-  _id: "abhishek",
-};
+import { useAlert } from "react-alert";
 
 function Home() {
-  const dispatch = useDispatch(productReducer);
+  const alert = useAlert();
+  const dispatch = useDispatch();
+  const { loading, error, products } = useSelector((state) => state.products);
 
   useEffect(() => {
+    if (error) {
+      return alert.error(error);
+    }
     dispatch(getProduct());
-  }, [dispatch]);
-
-  const { loading, error, products } = useSelector((state) => state.products);
+  }, [dispatch, error]);
 
   return (
     <Fragment>
@@ -46,9 +42,10 @@ function Home() {
             <h2 className="homeHeading">Featured Products</h2>
 
             <div className="container" id="container">
-              {products.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
+              {products &&
+                products.map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
             </div>
           </Fragment>
         </Fragment>
