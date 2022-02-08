@@ -8,6 +8,7 @@ import ProductDetails from "./component/Product/ProductDetails";
 import Products from "./component/Product/Products";
 import Search from "./component/Product/Search.js"
 import "./App.css";
+import LoginSignup from "./component/User/LoginSignup.js";
 
 
 
@@ -37,8 +38,12 @@ function App() {
           <Route path="/products/:keyword" element={<Products />}></Route>
         </Routes>
         <Routes>
+          <Route path="/login" element={<LoginSignup />}></Route>
+        </Routes>
+        <Routes>
           <Route path="/search" element={<Search />}></Route>
         </Routes>
+
         <Footer />
       </Router>
     </div>
