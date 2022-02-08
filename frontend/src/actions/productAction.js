@@ -10,10 +10,12 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from "../constants/productConstants";
 
-export const getProduct = (id) => async (dispatch) => {
+export const getProduct = (keyword = "") => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_REQUEST });
-    const { data } = await axios.get("http://localhost:4000/api/v1/products");
+
+    let link = `http://localhost:4000/api/v1/products?${keyword}`
+    const { data } = await axios.get(link);
 
     dispatch({
       type: PRODUCT_SUCCESS,
