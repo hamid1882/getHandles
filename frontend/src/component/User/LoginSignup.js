@@ -1,9 +1,13 @@
 import React, { Fragment, useRef, useState } from "react";
 import Loader from "../layout/Loader/Loader";
-import { Link } from "react-router-dom";  
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { clearErrors, login } from "../../actions/userActions";
 import "./LoginSignUp.css";
 
 const LoginSignup = () => {
+  const dispatch = useDispatch();
+
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
@@ -19,7 +23,6 @@ const LoginSignup = () => {
 
   const { name, email, password } = user;
 
-  
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
       const reader = new FileReader();
@@ -40,8 +43,9 @@ const LoginSignup = () => {
   const [avatar, setAvatar] = useState("/Profile.png");
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
 
-  const loginSubmit = () => {
-    console.log("Form Submitted");
+  const loginSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(loginEmail, loginPassword));
   };
 
   const registerSubmit = (e) => {
@@ -54,7 +58,6 @@ const LoginSignup = () => {
     myForm.set("password", password);
     myForm.set("avatar", avatar);
     console.log("Signup form Submitted");
-
   };
 
   const switchTabs = (e, tab) => {
@@ -73,8 +76,6 @@ const LoginSignup = () => {
       loginTab.current.classList.add("shiftToLeft");
     }
   };
-
-
 
   return (
     <Fragment>
@@ -152,7 +153,7 @@ const LoginSignup = () => {
               />
             </div>
             <div className="signUpEmail">
-            <svg
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24"
                 viewBox="0 0 24 24"
@@ -171,7 +172,7 @@ const LoginSignup = () => {
               />
             </div>
             <div className="signUpPassword">
-            <svg
+              <svg
                 width="24"
                 height="24"
                 xmlns="http://www.w3.org/2000/svg"
