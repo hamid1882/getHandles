@@ -10,7 +10,6 @@ function ProductCard({ product }) {
   };
 
   const images = product.images.map((images) => images.url);
-  console.log(images.toString());
   return (
     <Link className="productCard" to={`/product/${product._id}`}>
       <img src={images.toString()} alt={product.name} />
