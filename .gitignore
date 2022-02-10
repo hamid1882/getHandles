@@ -11,7 +11,7 @@
 /frontend/.DS_Store
 /frontend/.env.local
 /frontend/.env.development.local
-/frontend/.env.test.local
+
 /frontend/.env.production.local
 
 npm-debug.log*
