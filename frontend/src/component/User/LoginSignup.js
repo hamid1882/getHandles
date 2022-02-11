@@ -59,8 +59,6 @@ const LoginSignup = () => {
 
     const myForm = new FormData();
 
-
-
     myForm.set("name", name);
     myForm.set("email", email);
     myForm.set("password", password);
@@ -69,7 +67,7 @@ const LoginSignup = () => {
   };
 
   const alert = useAlert();
-  const Navigate = useNavigate();
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (error) {
@@ -78,9 +76,9 @@ const LoginSignup = () => {
     }
 
     if (isAuthenticated) {
-      Navigate("/products");
+      navigate("/products");
     }
-  }, [error, dispatch, alert, isAuthenticated]);
+  }, [error, dispatch, alert, isAuthenticated, navigate]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {

@@ -6,25 +6,34 @@ import Footer from "./component/layout/Footer/Footer.js";
 import Home from "./component/Home/Home.js";
 import ProductDetails from "./component/Product/ProductDetails";
 import Products from "./component/Product/Products";
-import Search from "./component/Product/Search.js"
+import Search from "./component/Product/Search.js";
 import "./App.css";
 import LoginSignup from "./component/User/LoginSignup.js";
-
-
+import Store from "./Store";
+import { loadUser } from "./actions/userActions";
+import { useSelector } from "react-redux";
+import UserOptions from "./component/layout/Header/UserOptions.js";
 
 function App() {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+
   useEffect(() => {
     WebFont.load({
       google: {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
+
+    Store.dispatch(loadUser());
   }, []);
 
   return (
     <div>
       <Router>
-        <Header />
+        <>
+          <Header />
+          {isAuthenticated && <UserOptions user={user} />}
+        </>
         <Routes>
           <Route path="/" element={<Home />}></Route>
         </Routes>
