@@ -27,6 +27,10 @@ function App() {
     Store.dispatch(loadUser());
   }, []);
 
+  console.log(isAuthenticated);
+
+  console.log(user);
+
   return (
     <div>
       <Router>

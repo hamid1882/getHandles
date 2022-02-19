@@ -6,19 +6,21 @@ const UserOptions = ({ user }) => {
   const [open, setOpen] = useState(false);
   return (
     <Fragment>
-      <SpeedDial
-        ariaLabel="Speed dial tooltip"
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        open={open}
-        icon={
-          <img
-            className="speedDialIcon"
-            src={user.avatar.url ? user.avatar.url : "/Profile.png"}
-            alt="Profile"
-          />
-        }
-      ></SpeedDial>
+      {user && (
+        <SpeedDial
+          ariaLabel="Speed dial tooltip"
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}
+          icon={
+            <img
+              className="speedDialIcon"
+              src="https://cdn.pixabay.com/photo/2015/06/22/08/40/child-817373__480.jpg"
+              alt="Profile"
+            />
+          }
+        ></SpeedDial>
+      )}
     </Fragment>
   );
 };

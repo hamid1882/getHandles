@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import Loader from "../layout/Loader/Loader";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userActions";
 import { useAlert } from "react-alert";
@@ -67,7 +67,7 @@ const LoginSignup = () => {
   };
 
   const alert = useAlert();
-  let navigate = useNavigate();
+  let history = useHistory();
 
   useEffect(() => {
     if (error) {
@@ -75,10 +75,12 @@ const LoginSignup = () => {
       dispatch(clearErrors());
     }
 
+    console.log(isAuthenticated);
+
     if (isAuthenticated) {
-      navigate("/products");
+      history.push("/Account");
     }
-  }, [error, dispatch, alert, isAuthenticated, navigate]);
+  }, [error, dispatch, alert, isAuthenticated, history]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
